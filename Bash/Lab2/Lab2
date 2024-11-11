@@ -1,0 +1,67 @@
+# Task 1: Clone the Lab2 Repository into `ee347` folder.
+# Replace <Lab2-Repository-URL> with the GitHub Classroom link.
+cd ~/ee347
+git clone <Lab2-Repository-URL> lab2
+
+# Task 2: Redirect `ls` output to `task2.txt`.
+# This saves the list of files in the current directory to `task2.txt`.
+ls > task2.txt
+
+# Task 3: Print "Hello World!" to the terminal in `task3.sh`.
+# Create `task3.sh` script with the following line:
+echo "Hello World!"
+
+# Task 4: Make `task3.sh` executable for the user only.
+# Then run the script to print "Hello World!".
+chmod u+x task3.sh  # Sets executable permissions for the user
+./task3.sh  # Executes the script
+
+# Task 5: Greet the user by name, passed as an argument.
+# Add the following code to `task5.sh`:
+echo "Hello $1!"  # $1 is the first argument passed to the script
+
+# Task 6: Copy `task5.sh` to `task6.sh`, appending greeting to `task6.txt`.
+# This script appends the greeting to `task6.txt` instead of printing.
+echo "Hello $1!" >> task6.txt
+
+# Task 7: Perform six mathematical operations on two arguments.
+# Add this code to `task7.sh`:
+echo "$1 + $2 = $(($1 + $2))"
+echo "$1 - $2 = $(($1 - $2))"
+echo "$1 * $2 = $(($1 * $2))"
+echo "$1 / $2 = $(($1 / $2))"
+echo "$1 % $2 = $(($1 % $2))"
+echo "$1 ^ $2 = $(($1 ** $2))"  # Exponentiation
+
+# Task 8: Compare two integers and two strings.
+# Add this code to `task8.sh`:
+if [ "$1" -lt "$2" ]; then
+  echo "$1 is less than $2"
+elif [ "$1" -gt "$2" ]; then
+  echo "$1 is greater than $2"
+else
+  echo "$1 is equal to $2"
+fi
+
+if [ "$3" == "$4" ]; then
+  echo "$3 is equal to $4"
+else
+  echo "$3 is not equal to $4"
+fi
+
+# Task 9: Print "Hello World!" 10 times using a loop in `task9.sh`.
+# Add this loop to `task9.sh`:
+for i in {1..10}; do
+  echo "Hello World!"
+done
+
+# Task 10: Continually append names to `task10.txt` until user types "quit".
+# Add this loop to `task10.sh`:
+while true; do
+  echo "Enter name (type 'quit' to stop):"
+  read name
+  if [ "$name" == "quit" ]; then
+    break
+  fi
+  echo "$name" >> task10.txt
+done

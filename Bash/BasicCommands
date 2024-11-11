@@ -1,0 +1,119 @@
+ls               # Lists files in the current directory
+ls -l            # Long listing format, shows permissions, size, date, etc.
+ls -a            # Lists all files including hidden files
+
+ls > output.txt      # Redirects output to overwrite 'output.txt'
+ls >> output.txt     # Appends output to 'output.txt'
+
+wc -l < output.txt   # Counts lines in 'output.txt'
+
+ls | grep ".txt"     # Filters output to show only .txt files
+
+mkdir my_folder             # Creates a new directory
+touch my_folder/file.txt    # Creates an empty file in 'my_folder'
+
+cd my_folder          # Changes directory to 'my_folder'
+cd ..                 # Goes back one directory level
+cd /path/to/folder    # Absolute path change
+
+rm file.txt                  # Removes a file
+rm -r my_folder              # Removes a directory and its contents
+
+name="Alice"            # Sets a variable
+echo "Hello, $name"     # Uses variable in string
+
+# my_script.sh
+echo "First argument: $1"
+echo "Second argument: $2"
+
+if [ -f "file.txt" ]; then
+  echo "file.txt exists"
+else
+  echo "file.txt does not exist"
+fi
+
+if [ "$name" == "Alice" ]; then
+  echo "Hello, Alice!"
+fi
+
+num=10
+if [ "$num" -gt 5 ]; then
+  echo "$num is greater than 5"
+fi
+# loops 
+# for loop 
+for i in {1..5}; do
+  echo "Iteration $i"
+done
+
+#while loop 
+count=1
+while [ "$count" -le 5 ]; do
+  echo "Count: $count"
+  count=$((count + 1))
+done
+
+#FUNCTIONS IN BASH
+
+greet() {
+  echo "Hello, $1!"
+}
+
+greet "Alice"      # Calls the function with "Alice" as argument
+
+
+#FILE PERMISSIONS 
+
+chmod u+x script.sh       # Makes 'script.sh' executable for the user
+chmod 755 script.sh       # Sets rwxr-xr-x permissions (user/group/others)
+
+
+#READING FROM A FILE 
+
+while read line; do
+  echo "$line"
+done < file.txt
+
+
+#APPENDING TO A NEW FILE 
+
+echo "New line" >> file.txt
+
+#Mathetical Operations 
+result=$((5 + 3))   # result is 8
+echo "5 + 3 = $result"
+
+#Using CHMOD to make scripts executable 
+
+chmod +x my_script.sh   # Makes 'my_script.sh' executable
+./my_script.sh          # Runs the script
+
+#Looping through files and running commands 
+mkdir new_folder
+if [ $? -eq 0 ]; then
+  echo "Directory created successfully"
+else
+  echo "Failed to create directory"
+fi
+
+#Case Statements 
+echo "Enter a choice (start/stop/status):"
+read choice
+
+case $choice in
+  start)
+    echo "Starting service..."
+    ;;
+  stop)
+    echo "Stopping service..."
+    ;;
+  status)
+    echo "Service status:"
+    ;;
+  *)
+    echo "Invalid choice!"
+    ;;
+esac
+
+
+
