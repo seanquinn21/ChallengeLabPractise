@@ -1,3 +1,7 @@
+
+#Update your camera application to include face cropping functionality for both image
+#capture and video recording.
+
 import cv2
 from picamera2 import Picamera2
 import numpy as np
