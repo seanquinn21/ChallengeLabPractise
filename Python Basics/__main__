@@ -1,0 +1,73 @@
+# math_operations.py
+
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+# Code below only runs if the file is executed directly, not if it's imported.
+if __name__ == "__main__":
+    # Test the functions by running this file directly.
+    print("Running tests in math_operations.py")
+    print("Add 5 + 3 =", add(5, 3))
+    print("Subtract 5 - 3 =", subtract(5, 3))
+
+
+## run it as python math_operations.py
+
+## output ##
+Running tests in math_operations.py
+Add 5 + 3 = 8
+Subtract 5 - 3 = 2
+
+
+# another_script.py
+import math_operations
+
+result = math_operations.add(10, 5)
+print("Result:", result)
+
+##output
+Result: 15
+
+## used for data processing 
+
+# data_processing.py
+
+def load_data():
+    # Simulate loading data
+    return [1, 2, 3, 4, 5]
+
+def process_data(data):
+    # Example processing: square each item
+    return [x ** 2 for x in data]
+
+# Code below only runs if the file is executed directly.
+if __name__ == "__main__":
+    # Load and process data only when this file is run directly.
+    print("Running data processing...")
+    data = load_data()
+    print("Loaded data:", data)
+    processed = process_data(data)
+    print("Processed data:", processed)
+
+
+##output
+Running data processing...
+Loaded data: [1, 2, 3, 4, 5]
+Processed data: [1, 4, 9, 16, 25]
+
+
+##importing into another python file 
+# analysis_script.py
+from data_processing import load_data, process_data
+
+data = load_data()
+print("Data for analysis:", data)
+
+#output 
+Data for analysis: [1, 2, 3, 4, 5]
+    
+    
+

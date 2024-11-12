@@ -1,0 +1,169 @@
+
+
+### uses of classes ###
+
+class Person:
+    def __init__(self, name, age):
+        self.name = name  # Instance attribute
+        self.age = age
+
+    def greet(self):
+        return f"Hello, my name is {self.name}"
+
+# Creating an instance of Person
+person = Person("Alice", 30)
+print(person.greet())  # Outputs: Hello, my name is Alice
+
+__init__ is the initializer method that sets up the initial state of an object.
+self represents the instance of the class and allows access to its attributes and methods
+
+
+## instance vs class variables 
+class Animal:
+    species = "Mammal"  # Class variable
+
+    def __init__(self, name):
+        self.name = name  # Instance variable
+
+dog = Animal("Dog")
+print(dog.species)  # Outputs: Mammal
+
+
+## Reading and Writing files 
+
+## writing
+
+with open("names.txt", "w") as file:
+    file.write("Alice\nBob\nCharlie")
+
+## Reading from a file 
+
+with open("names.txt", "r") as file:
+    for line in file:
+        print(line.strip())  # Reads and prints each line, removing newline characters
+
+# Writing multiple lines
+with open("lines.txt", "w") as file:
+    lines = ["First line\n", "Second line\n", "Third line\n"]
+    file.writelines(lines)
+
+# Reading all lines at once
+with open("lines.txt", "r") as file:
+    lines = file.readlines()
+    print(lines)  # Outputs: ['First line\n', 'Second line\n', 'Third line\n']
+
+## Use of CSV 
+
+import csv
+
+with open("data.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Name", "Age"])  # Header row
+    writer.writerow(["Alice", 30])
+    writer.writerow(["Bob", 25])
+
+
+## reading 
+import csv
+
+with open("data.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+
+## using DictReader and DictWriter
+
+import csv
+
+# Writing with DictWriter
+with open("data_dict.csv", "w", newline="") as file:
+    fieldnames = ["Name", "Age"]
+    writer = csv.DictWriter(file, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerow({"Name": "Alice", "Age": 30})
+    writer.writerow({"Name": "Bob", "Age": 25})
+
+# Reading with DictReader
+with open("data_dict.csv", "r") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        print(row)  # Outputs each row as a dictionary
+
+
+## numpy 
+
+import numpy as np
+
+arr = np.ones((8, 8))        # Creates an 8x8 array of ones
+arr[1:-1, 1:-1] = 0          # Sets the inner elements to zero
+print(arr)
+
+
+np.save("array.npy", arr)     # Saves array to a .npy file
+
+
+loaded_arr = np.load("array.npy")  # Loads array from file
+
+
+arr = np.array([1, 2, 3, 4])
+arr_squared = arr ** 2           # Squares each element
+
+
+
+## Plotting 
+
+
+import matplotlib.pyplot as plt
+x = np.linspace(0, 10, 100)   # Generates 100 points between 0 and 10
+y = np.sin(x)                 # y-values are the sine of x
+
+plt.plot(x, y)                # Plots y vs. x
+plt.show()                    # Displays the plot
+
+
+## customize colour
+
+
+plt.plot(x, y, color="blue", label="Sine Wave")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Plot of Sine Function")
+plt.legend()                  # Adds a legend
+plt.show()
+
+
+## saving 
+plt.plot(x, y)
+plt.savefig("sine_wave_plot.png")  # Saves the plot as an image file
+
+
+## Exception Handling 
+
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+
+
+try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+except ValueError:
+    print("Invalid input! Please enter a number.")
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+
+
+try:
+    file = open("data.txt", "r")
+    content = file.read()
+except FileNotFoundError:
+    print("File not found!")
+finally:
+    file.close()  # Closes the file whether or not an exception occurred
+
+
+
+
+
