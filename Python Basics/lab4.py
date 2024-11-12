@@ -56,7 +56,7 @@ with open("task5.csv", "r") as file:
 
 
 # Task 6: Given an 8x8 numpy array of ones, set all inner elements to zero,
-#         leaving only the border as ones.
+#leaving only the border as ones.
 
 import numpy as np
 
