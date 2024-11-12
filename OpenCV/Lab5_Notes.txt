@@ -1,0 +1,265 @@
+
+
+
+## ----------------------------------------------- ##
+Basic Image loading and Displaying 
+## ----------------------------------------------- ##
+
+
+# task1.py
+import cv2
+
+# Load an image from a file
+image = cv2.imread("task1.jpg")  # Replace with the path to your image file
+
+# Display the image in a window
+cv2.imshow("Image", image)
+
+# Wait until a key is pressed, then close the window
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+## ----------------------------------------------- ##
+Convert to Grey Scale
+## ----------------------------------------------- ##
+
+# task2.py
+import cv2
+
+# Load the image
+image = cv2.imread("task1.jpg")
+
+# Convert the image to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Save the grayscale image
+cv2.imwrite("task2.jpg", gray_image)
+
+
+
+## ----------------------------------------------- ##
+  # Drawing shapes on image 
+## ----------------------------------------------- ##
+
+
+# task3.py
+import cv2
+
+# Load the image
+image = cv2.imread("task1.jpg")
+
+# Draw a red line from top-left to bottom-right
+cv2.line(image, (0, 0), (image.shape[1], image.shape[0]), (0, 0, 255), 5)
+
+# Draw a green rectangle
+cv2.rectangle(image, (50, 50), (200, 200), (0, 255, 0), 3)
+
+# Draw a blue circle
+cv2.circle(image, (300, 300), 50, (255, 0, 0), -1)  # -1 fills the circle
+
+# Save the modified image
+cv2.imwrite("task3.jpg", image)
+
+
+image: The image on which to draw the line.
+(0, 0): Starting point of the line in (x, y) format. (0, 0) is the top-left corner of the image.
+(image.shape[1], image.shape[0]): Ending point of the line. Here, image.shape[1] is the width of the image (x-axis), and image.shape[0] is the height of the image (y-axis), so this draws the line to the bottom-right corner of the image.
+(0, 0, 255): The color of the line in BGR format (Blue, Green, Red). (0, 0, 255) represents red.
+5: Thickness of the line in pixels
+
+
+image: The image on which to draw the rectangle.
+(50, 50): Top-left corner of the rectangle in (x, y) format.
+(200, 200): Bottom-right corner of the rectangle in (x, y) format.
+(0, 255, 0): The color of the rectangle in BGR format. (0, 255, 0) represents green.
+3: Thickness of the rectangle border in pixels. A positive integer value represents border thickness; -1 would fill the rectangle.
+
+
+image: The image on which to draw the rectangle.
+(50, 50): Top-left corner of the rectangle in (x, y) format.
+(200, 200): Bottom-right corner of the rectangle in (x, y) format.
+(0, 255, 0): The color of the rectangle in BGR format. (0, 255, 0) represents green.
+3: Thickness of the rectangle border in pixels. A positive integer value represents border thickness; -1 would fill the rectangle.
+
+
+## ----------------------------------------------- ##
+ Sobel Edge Detection
+## ----------------------------------------------- ##
+
+# task4.py
+import cv2
+import numpy as np
+
+# Load the image in grayscale
+image = cv2.imread("task1.jpg", cv2.IMREAD_GRAYSCALE)
+
+# Apply Sobel edge detection
+sobel_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=5)  # Horizontal edges
+sobel_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=5)  # Vertical edges
+
+# Combine the two gradients
+sobel_combined = cv2.magnitude(sobel_x, sobel_y)
+
+# Convert to an 8-bit format for viewing
+sobel_combined = cv2.convertScaleAbs(sobel_combined)
+
+# Save the result
+cv2.imwrite("task4.jpg", sobel_combined)
+
+
+## ----------------------------------------------- ##
+ # Capture image using camera 
+## ----------------------------------------------- ##
+
+# task5.py
+from picamera2 import Picamera2
+import cv2
+
+# Initialize the camera
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+# Capture an image
+frame = picam2.capture_array()
+
+# Save the captured image
+cv2.imwrite("task5.jpg", frame)
+
+picam2.stop()
+
+
+
+## ----------------------------------------------- ##
+ # Display a live camera feed in an openCV window 
+## ----------------------------------------------- ##
+
+# task6.py
+from picamera2 import Picamera2
+import cv2
+
+# Initialize the camera
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+# Display live camera feed
+while True:
+    frame = picam2.capture_array()
+    cv2.imshow("Live Feed", frame)
+
+    # Break the loop if 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+picam2.stop()
+
+
+
+## ----------------------------------------------- ##
+ # Capture image on key press
+## ----------------------------------------------- ##
+
+
+# task7.py
+from picamera2 import Picamera2
+import cv2
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+# Loop to display live feed and capture on space key press
+while True:
+    frame = picam2.capture_array()
+    cv2.imshow("Press Space to Capture", frame)
+
+    # If the space key is pressed, save the image
+    if cv2.waitKey(1) & 0xFF == ord(' '):
+        cv2.imwrite("task7.jpg", frame)
+
+    # Exit if 'q' is pressed
+    elif cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+picam2.stop()
+
+
+
+## ----------------------------------------------- ##
+ # Save as nmpy file
+## ----------------------------------------------- ##
+
+# task8.py
+from picamera2 import Picamera2
+import cv2
+import numpy as np
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+while True:
+    frame = picam2.capture_array()
+    cv2.imshow("Press Space to Capture", frame)
+
+    # Save image as numpy array on space key press
+    if cv2.waitKey(1) & 0xFF == ord(' '):
+        np.save("task8.npy", frame)
+        print("Image saved as numpy array.")
+
+    elif cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cv2.destroyAllWindows()
+picam2.stop()
+
+
+
+## ----------------------------------------------- ##
+ # Detect Face using harascarades
+## ----------------------------------------------- ##
+
+# task9.py
+import cv2
+
+# Load the image
+image = cv2.imread("task5.jpg")
+
+# Load the pre-trained face detection model
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+
+# Convert the image to grayscale for face detection
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Detect faces
+faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
+
+# Draw a bounding box around each face
+for (x, y, w, h) in faces:
+    cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+# Display the result
+cv2.imshow("Face Detection", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+## ----------------------------------------------- ##
+ # live face detection 
+## ----------------------------------------------- ##
+
+# task10.py
+from picamera2 import Picamera2
+import cv2
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
+picam2.start()
+
+# Load the Haar Cascade model for face detection
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade
