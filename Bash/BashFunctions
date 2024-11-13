@@ -1,0 +1,192 @@
+#------------------------------------------------#
+#   1. Defining and Calling Functions
+#------------------------------------------------#
+# Functions in Bash start with a name followed by parentheses `()`.
+# The function code is placed within curly braces `{}`, and no return type or keyword is needed.
+# Functions are called by simply typing their name.
+
+example_function() {
+    echo "This is a function"
+}
+
+# Calling the function
+example_function
+
+
+#------------------------------------------------#
+#   2. Using Parameters in Functions
+#------------------------------------------------#
+# Functions accept parameters similarly to script arguments.
+# - `$1`, `$2`, ..., `$n` represent the first, second, and nth arguments within the function.
+# - `$@` holds all arguments, and `$#` gives the number of arguments passed.
+
+greet_user() {
+    echo "Hello, $1!"
+    echo "You passed $# arguments: $@"
+}
+
+# Calling the function with arguments
+greet_user "Alice" "Extra" "Arguments"  # Output: Hello, Alice!
+
+
+#------------------------------------------------#
+#   3. Returning Values from Functions
+#------------------------------------------------#
+# Functions use `return` to set an exit status code (0 to 255).
+# - `return` values indicate success (0) or failure (non-zero).
+# - `$?` holds the exit status of the last command or function.
+
+is_even() {
+    if (( $1 % 2 == 0 )); then
+        return 0  # Success
+    else
+        return 1  # Failure
+    fi
+}
+
+# Calling the function
+is_even 4
+if [ $? -eq 0 ]; then
+    echo "The number is even"
+else
+    echo "The number is odd"
+fi
+
+
+#------------------------------------------------#
+#   4. Using `echo` to Return Output
+#------------------------------------------------#
+# Use `echo` in functions to output values, then capture it with command substitution `$(...)`.
+
+add_numbers() {
+    echo $(( $1 + $2 ))
+}
+
+# Capture the output of the function in a variable
+result=$(add_numbers 5 10)
+echo "The sum is: $result"  # Output: The sum is: 15
+
+
+#------------------------------------------------#
+#   5. Local Variables in Functions
+#------------------------------------------------#
+# By default, variables in Bash functions are global.
+# Use `local` to restrict a variable’s scope to the function.
+
+calculate_square() {
+    local num=$1  # Local variable
+    echo $(( num * num ))
+}
+
+result=$(calculate_square 4)
+echo "The square is: $result"  # Output: The square is: 16
+
+
+#------------------------------------------------#
+#   6. Conditional Logic within Functions
+#------------------------------------------------#
+# Functions can include `if`, `else`, `elif`, `case`, and other conditional statements.
+
+check_file() {
+    if [ -f "$1" ]; then
+        echo "File $1 exists."
+    elif [ -d "$1" ]; then
+        echo "$1 is a directory."
+    else
+        echo "File or directory $1 does not exist."
+    fi
+}
+
+check_file "/path/to/file_or_directory"
+
+
+#------------------------------------------------#
+#   7. Loops in Functions
+#------------------------------------------------#
+# Loops can be used within functions to perform repetitive tasks, such as processing files.
+
+print_arguments() {
+    for arg in "$@"; do
+        echo "Argument: $arg"
+    done
+}
+
+# Call the function with multiple arguments
+print_arguments "Hello" "World" "Bash" "Scripting"
+
+
+#------------------------------------------------#
+#   8. Using Functions from Another Script (Function Libraries)
+#------------------------------------------------#
+# You can create reusable functions in separate scripts and import them using `source` or `.`.
+
+# In helper_functions.sh:
+# greet() {
+#     echo "Hello, $1!"
+# }
+
+# In main_script.sh:
+# source helper_functions.sh
+# greet "Alice"  # Calls the function from helper_functions.sh
+
+
+#------------------------------------------------#
+#   9. Functions with Default Argument Values
+#------------------------------------------------#
+# Use parameter expansion syntax to set default values for function arguments.
+
+greet_user() {
+    local name=${1:-"User"}  # Default to "User" if no argument provided
+    echo "Hello, $name!"
+}
+
+greet_user "Alice"  # Output: Hello, Alice!
+greet_user          # Output: Hello, User!
+
+
+#------------------------------------------------#
+#   10. Debugging Functions with `set -x`
+#------------------------------------------------#
+# Use `set -x` to enable debugging in functions and `set +x` to disable it.
+# This will show each command as it’s executed, useful for tracing and debugging.
+
+debug_example() {
+    set -x  # Enable debugging
+    echo "Debugging function"
+    local result=$(( 5 * 2 ))
+    echo "Result: $result"
+    set +x  # Disable debugging
+}
+
+debug_example
+
+
+#------------------------------------------------#
+#   11. Recursive Functions in Bash
+#------------------------------------------------#
+# Recursive functions can be used in Bash, though stack limits apply. Useful for tasks like directory traversal.
+
+factorial() {
+    if [ "$1" -le 1 ]; then
+        echo 1
+    else
+        local prev=$(factorial $(( $1 - 1 )))
+        echo $(( $1 * prev ))
+    fi
+}
+
+echo "Factorial of 5 is $(factorial 5)"  # Output: Factorial of 5 is 120
+
+
+#------------------------------------------------#
+#   Summary of Key Points
+#------------------------------------------------#
+# - **Defining Functions**: Use `function_name() { ... }` and call by typing `function_name`.
+# - **Using Parameters**: Access with `$1`, `$2`, and `$@` for all arguments.
+# - **Returning Values**: Use `return` for exit status codes; use `echo` for output.
+# - **Local Variables**: Use `local` for variables confined to function scope.
+# - **Control Structures**: Integrate `if` statements, loops, and conditionals within functions.
+# - **Debugging Functions**: Use `set -x` for command tracing.
+# - **Reusable Functions**: Source functions from other files for modular scripts.
+
+# Understanding these function elements enables you to write structured, reusable, and efficient scripts in Bash.
