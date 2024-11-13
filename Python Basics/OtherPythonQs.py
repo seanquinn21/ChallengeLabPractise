@@ -111,7 +111,7 @@ print(account.get_balance())  # Output: 150
 
 
 #------------------------------------------------#
-#   8. File Handling
+#   8. File Handling 
 #------------------------------------------------#
 # Write a function that reads a file and counts the occurrences of each word.
 # This question tests your ability to handle file I/O, string manipulation, and dictionaries.
